@@ -7,16 +7,18 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer,{addToken} from './src/redux/authslie';
 import { Provider,useSelector,useDispatch } from 'react-redux';
 import StickyFooterLayout from './src/footer/StickyFooter';
-
+import productReducer from './src/redux/productslice'
 import Register from './src/pages/Register';
 import Home from './src/pages/Home';
 import Profile from './src/pages/Profile';
+import Map from './src/pages/Map';
 
 const stack = createNativeStackNavigator()
 
 const store = configureStore({
   reducer:{
-    user: authReducer
+    user: authReducer,
+    products: productReducer, 
   }
 })
 
@@ -62,6 +64,7 @@ const App = () => {
         name="profile"
         component={Profile}
         />
+         <stack.Screen name="map" component={Map} />
       </stack.Navigator>
       </StickyFooterLayout>
     </NavigationContainer>

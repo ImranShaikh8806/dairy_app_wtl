@@ -2,6 +2,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React, { useState } from 'react'
 import Icon from "react-native-vector-icons/FontAwesome"
 import { useNavigation } from '@react-navigation/native';
+import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 
 
 const Footer = () => {
@@ -25,7 +26,7 @@ const Footer = () => {
 <View style={styles.box}>
         <TouchableOpacity onPress={()=>handlePress("home")}>
         <View style={styles.box} >
-        <Icon name="home" size={30} color={activeTab == "home" ? "#38bdf8" : "gray"}/>
+        <Icon name="shopping-basket" size={30} color={activeTab == "home" ? "#FF6500" : "gray"}/>
         <Text>Home</Text>
         </View>
         </TouchableOpacity> 
@@ -34,8 +35,7 @@ const Footer = () => {
       <View style={styles.box}> 
       <TouchableOpacity onPress={()=>handlePress("profile")}>
       <View style={styles.box} >
-      <Icon name="user" size={30} color={activeTab == "profile" ? "#38bdf8" : "gray"}/>
-      <Text>More</Text>
+      <MaterialIcons name="category" size={30} color={activeTab == "profile" ? "#FF6500" : "gray"} /> <Text>More</Text>
       </View>
       </TouchableOpacity>
       </View>
