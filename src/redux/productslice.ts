@@ -23,12 +23,12 @@ const initialState: ProductState = {
   error: null,
 };
 
-// Async thunk to fetch products
+
 export const fetchProducts = createAsyncThunk(
   'products/fetchProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('http://192.168.107.216:5000/api/products/');
+      const response = await axios.get('http://192.168.1.68:5000/api/products/');
       console.log(response);
       
       return response.data.products;  

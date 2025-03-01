@@ -33,7 +33,7 @@ export const registerUser = createAsyncThunk(
     "auth/registerUser",
     async (body: { email: string; password: string; name:string; phone:string, street:string, city:string, state:string, zipcode:string }, { rejectWithValue }) => {
         try {
-            const result = await axios.post("http://192.168.107.216:5000/api/users/register", body, {
+            const result = await axios.post("http://192.168.1.68:5000/api/users/register", body, {
                 headers: {
                     "Content-Type": "application/json"
                 }
@@ -51,7 +51,7 @@ export const loginUser = createAsyncThunk(
     async (body: { email: string; password: string }, { rejectWithValue }) => {
         try {
             const token = await AsyncStorage.getItem("token");
-            const result = await axios.post("http://192.168.107.216:5000/api/users/login", body, {
+            const result = await axios.post("http://192.168.1.68:5000/api/users/login", body, {
                 headers: {
                     "Content-Type": "application/json",
                     "Authorization": `Bearer ${token}`

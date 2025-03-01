@@ -14,8 +14,8 @@ const Footer = () => {
 
       if(tabName=="home"){
         navigation.navigate("home")
-      }else if (tabName === "profile") {
-        navigation.navigate("profile"); 
+      }else if (tabName === "userCart") {
+        navigation.navigate("userCart"); 
       } 
     }
 
@@ -27,15 +27,16 @@ const Footer = () => {
         <TouchableOpacity onPress={()=>handlePress("home")}>
         <View style={styles.box} >
         <Icon name="shopping-basket" size={30} color={activeTab == "home" ? "#FF6500" : "gray"}/>
-        <Text>Home</Text>
+        <Text style={{color:activeTab==="home" ? "#FF6500"  : "gray"}}>Home</Text>
         </View>
         </TouchableOpacity> 
       </View>
 
       <View style={styles.box}> 
-      <TouchableOpacity onPress={()=>handlePress("profile")}>
+      <TouchableOpacity onPress={()=>handlePress("userCart")}>
       <View style={styles.box} >
-      <MaterialIcons name="category" size={30} color={activeTab == "profile" ? "#FF6500" : "gray"} /> <Text>More</Text>
+      <MaterialIcons name="local-grocery-store" size={32} color={activeTab == "userCart" ? "#FF6500" : "gray"} /> 
+      <Text style={{color:activeTab == "userCart" ? "#FF6500" : "gray"}}>More</Text>
       </View>
       </TouchableOpacity>
       </View>

@@ -12,7 +12,7 @@ interface RootState {
   };
 }
 
-const Dairy = () => {
+const Dairy = ({navigation}) => {
   const token = useSelector(state=>state.user.token)
   const dispatch = useDispatch();
   const { products, isLoading, error } = useSelector((state: RootState) => state.products);
@@ -32,11 +32,9 @@ const Dairy = () => {
   const handleAddToCart = async (product) => {
     try {
       const response = await axios.post(
-        "http://192.168.107.216:5000/api/cart/add",
+        "http://192.168.1.68:5000/api/cart/add",
         {
           productId: product._id,
-          size: product.availableSizes[0],
-          color: product.availableColors[0],
           quantity: product.quantity,
         },
         {
@@ -58,6 +56,8 @@ const Dairy = () => {
       
     }
   };
+
+  
   
 
   if (error) {
@@ -70,25 +70,34 @@ const Dairy = () => {
 
   const renderItem = ({ item }) => (
     <View style={styles.productContainer}>
-      <Image source={{ uri: item.images[0] }} style={styles.productImage} />
-      <Text 
-  style={styles.productName} numberOfLines={2}  ellipsizeMode="tail"> {item.productName} </Text>
-      <View style={{display:'flex',flexDirection:"row", justifyContent:"space-evenly",gap:10}}>
-      <Text style={styles.productPrice}>₹{item.price}</Text> 
-      <Text style={styles.productStock}>Stock: {item.availableStock}</Text>
-     
-      </View >
-      <TouchableOpacity onPress={()=>handleAddToCart(item)} style={styles.addToCartButton}>
-        <Text>Add to cart</Text>
+<TouchableOpacity
+  onPress={() => {
+    console.log("Navigating with product:", item); 
+    navigation.navigate("productDetails", { product: item });
+  }}
+>
+        <Image source={{ uri: item.images[0] }} style={styles.productImage} />
+        <Text style={styles.productName} numberOfLines={2} ellipsizeMode="tail">
+          {item.productName}
+        </Text>
+        <View style={{ flexDirection: "row", justifyContent: "space-evenly", gap: 10 }}>
+          <Text style={styles.productPrice}>₹{item.price}</Text>
+          <Text style={styles.productStock}>Stock: {item.availableStock}</Text>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity onPress={() => handleAddToCart(item)} style={styles.addToCartButton}>
+        <Text style={styles.addToCartText}>Add to cart</Text>
       </TouchableOpacity>
     </View>
   );
+  
+  
 
   return (
     <View style={styles.container}>
       <FlatList
         data={products}
-        renderItem={renderItem}
+        renderItem={(props) => renderItem({ ...props, navigation })} // Ensure navigation is passed
         keyExtractor={(item) => item._id}
         horizontal
         showsHorizontalScrollIndicator={false} 
@@ -96,6 +105,8 @@ const Dairy = () => {
       />
     </View>
   );
+  
+  
 };
 
 const styles = StyleSheet.create({

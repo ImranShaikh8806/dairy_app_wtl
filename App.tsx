@@ -12,6 +12,8 @@ import Register from './src/pages/Register';
 import Home from './src/pages/Home';
 import Profile from './src/pages/Profile';
 import Map from './src/pages/Map';
+import UserCart from './src/pages/UserCart';
+import ProductDetails from './src/pages/ProductDetails';
 
 const stack = createNativeStackNavigator()
 
@@ -64,7 +66,10 @@ const App = () => {
         name="profile"
         component={Profile}
         />
-         <stack.Screen name="map" component={Map} />
+         <stack.Screen name="map" component={Map} options={{headerShown:false}}/>
+         <stack.Screen name="userCart" component={UserCart} options={{headerShown:false}} />
+
+         <stack.Screen name="productDetails" component={ProductDetails} />
       </stack.Navigator>
       </StickyFooterLayout>
     </NavigationContainer>

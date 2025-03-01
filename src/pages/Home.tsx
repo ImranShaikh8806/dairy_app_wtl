@@ -10,10 +10,11 @@ import Bakery from './Bakery';
 
 
 
-const Home = () => {
+const Home = ({route}) => {
     const [selectedName, setSelectedName] = useState("Dairy");
     const navigation = useNavigation();
-
+    const location = route.params
+console.log("home location",location);
 
   const data = [
     { name: 'Dairy', avatar: require("../assets/images/dairy.jpg")},
@@ -36,17 +37,18 @@ const Home = () => {
   const renderSelectedPage = () => {
     switch (selectedName) {
       case 'Dairy':
-        return <Dairy />;
+        return <Dairy navigation={navigation} />;  
       case 'Bakery':
-        return <Bakery />;
+        return <Bakery navigation={navigation} />; 
       case 'Fruits and Vegetables':
-        return <FruitsAndVegetables />;
+        return <FruitsAndVegetables navigation={navigation} />; 
       case 'Cold drinks':
-        return <Colddrinks />;
-      default:<Dairy/>
-        return null;
+        return <Colddrinks navigation={navigation} />; 
+      default:
+        return <Dairy navigation={navigation} />; 
     }
   };
+  
   
   return (
     <ScrollView>
@@ -59,10 +61,10 @@ const Home = () => {
     <TouchableOpacity onPress={()=>navigation.navigate("map")}>
       <View style={{display:"flex",flexDirection:"row",alignItems:"center",gap:7}}>
       <Icon name="location-arrow" size={30} color="#FF6500" style={styles.icon} />
-      <Text style={styles.text}>Deliver to Kharadi</Text>
+      <Text style={styles.text}>Deliver to {location}</Text>
       </View>
     </TouchableOpacity>
-    <TouchableOpacity>
+    <TouchableOpacity onPress={()=>navigation.navigate("profile")}>
     <Icon name="user" size={30} color="gray" style={styles.icon} />
     </TouchableOpacity>
     </View>
@@ -80,7 +82,7 @@ const Home = () => {
     <View style={styles.cartContainer}>
         {data.map((u,i)=>{
             return(
-      <View style={[styles.card, { backgroundColor: selectedName === u.name ? "#fff" : "#EAEAEA" }]}>
+      <View key={i} style={[styles.card, { backgroundColor: selectedName === u.name ? "#fff" : "#EAEAEA" }]}>
                   <Pressable onPress={()=>handlePress(u.name)}>
                    <Image style={styles.image} source={ u.avatar }/>
                    <Text style={styles.name} numberOfLines={1}  ellipsizeMode="tail">{u.name}</Text>
